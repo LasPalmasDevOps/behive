@@ -66,7 +66,9 @@ Vagrant.configure(2) do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
      sudo apt-get update
+     sudo apt-get install -y git
      sudo apt-get install -y nodejs
      sudo apt-get install -y npm
+     sudo npm install -g node-inspector forever
   SHELL
 end
