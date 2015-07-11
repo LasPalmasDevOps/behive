@@ -20,3 +20,6 @@ All about sharing
 [Frank](https://github.com/franksosa "Frank"),
 [Álvaro](https://github.com/alsanuz "Álvaro"),
 [Nayra](https://github.com/nayraq80 "Nayra")
+[Fer](https://github.com/s3rrot "Fer")
+[Patricia](https://github.com/patriciasc "Patricia")
+[Victor](https://github.com/victorjss "Victor")
