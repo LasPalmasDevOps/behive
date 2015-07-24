@@ -65,12 +65,19 @@ Vagrant.configure(2) do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
-     sudo apt-get update
-  # Needed installations
-     sudo apt-get install -y git
-     sudo apt-get install -y nodejs
-     sudo apt-get install -y npm
-  # Needed npm global modules
-     sudo npm install -g node-inspector forever
+    # update
+    sudo apt-get update
+
+    # Needed installations
+    sudo apt-get install -y curl
+    curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -
+    sudo apt-get install -y nodejs
+    sudo apt-get install build-essential
+    sudo apt-get install -y git
+    sudo apt-get install -y default-jre
+
+    # Needed npm global modules
+    sudo npm install -g node-inspector forever phantomjs protractor
+    sudo webdriver-manager update --standalone
   SHELL
 end
