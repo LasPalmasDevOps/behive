@@ -1,0 +1,41 @@
+---
+# This playbook install and update nodejs
+
+- name: Nodejs + npm + curl
+  apt: name={{item}} state=installed
+  with_items:
+    - nodejs
+    - npm
+    - curl
+  sudo: yes
+
+- name: Checking installed version of node.js ({{ node.version }})
+  shell: /usr/bin/test `node -v` = v{{ node.version }} && echo True
+  register: nodeversion
+  ignore_errors: yes
+
+- name: npm install -g n
+  npm: name=n global=yes registry=http://registry.npmjs.org/
+  sudo: yes
+  when: nodeversion|failed
+
+- name: Install last nodejs version ({{ node.version }})
+  shell: n {{ node.version }}
+  sudo: yes
+  when: nodeversion|failed
+
+- name: Create symlinks
+  file: src=/usr/local/n/versions/node/{{ node.version }}/bin/{{ item.src }} dest=/usr/bin/{{ item.dest }} state=link force=yes
+  with_items:
+    - { src: 'npm', dest: 'npm' }
+    - { src: 'node', dest: 'node' }
+    - { src: 'node', dest: 'nodejs' }
+  sudo: yes
+  when: nodeversion|failed
+
+- name: NPM packages
+  npm: name={{ item }} global=yes
+  with_items:
+    - node-inspector
+    - forever
+  sudo: yes
