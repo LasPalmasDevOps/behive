@@ -1,0 +1,10 @@
+---
+# This playbook contains common plays that will be run on all nodes.
+
+- name: Update repositories
+  apt: update_cache=yes
+  sudo: yes
+
+- name: Git
+  apt: name=git state=installed
+  sudo: yes
